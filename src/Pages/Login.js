@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi } from '../redux/actions';
+import { fetchApi, getEmail, getName } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -40,7 +40,10 @@ class Login extends Component {
   handleClickSubmit = async (event) => {
     event.preventDefault();
     const { history, dispatch } = this.props;
-    dispatch(fetchApi());
+    const { name, email } = this.state;
+    dispatch(getName(name));
+    dispatch(getEmail(email));
+    await dispatch(fetchApi());
     history.push('/game');
   };
 
