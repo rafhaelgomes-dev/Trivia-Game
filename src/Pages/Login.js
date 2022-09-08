@@ -44,6 +44,13 @@ class Login extends Component {
     history.push('/game');
   };
 
+  handleClickConfig = (event) => {
+    event.preventDefault();
+    const { history } = this.props;
+
+    history.push('/config');
+  };
+
   render() {
     const { isBtnDisabled } = this.state;
     return (
@@ -80,6 +87,14 @@ class Login extends Component {
           disabled={ isBtnDisabled }
         >
           Play
+        </button>
+
+        <button
+          type="submit"
+          data-testid="btn-settings"
+          onClick={ this.handleClickConfig }
+        >
+          Configurações
         </button>
       </form>
     );
