@@ -1,9 +1,11 @@
 export const REQUEST_API = 'REQUEST_API';
 export const RESPONSE_API = 'RESPONSE_API';
+export const RESULT_API = 'RESULT_API';
 export const GET_ERROR = 'GET_ERROR';
 
 export const requestApi = () => ({ type: REQUEST_API });
 export const responseApi = (payload) => ({ type: RESPONSE_API, payload });
+export const resultApi = (payload) => ({ type: RESULT_API, payload });
 export const getError = (payload) => ({ type: GET_ERROR, payload });
 
 export function fetchApi() {
@@ -15,6 +17,19 @@ export function fetchApi() {
       const result = await response.json();
       localStorage.setItem('token', result.token);
       return dispatch(responseApi(result));
+    } catch (error) {
+      dispatch(getError(error.message));
+      console.log(error.message);
+    }
+  };
+}
+
+export function fetchApiResult(token) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+      const data = await response.json();
+      return dispatch(resultApi(data));
     } catch (error) {
       dispatch(getError(error.message));
     }
