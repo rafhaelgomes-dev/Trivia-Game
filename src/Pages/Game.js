@@ -9,40 +9,30 @@ class Game extends Component {
     this.state = {
       index: 0,
       clickAnswer: false,
-      seconds: 5,
+      seconds: 30,
       disabledButtonAnswers: false,
     };
   }
 
   componentDidMount() {
-    const { Results, history } = this.props;
-    const responseCode = 3;
-    if (Results.response_code === responseCode) {
-      return history.push('/');
-    }
+      const { Results, history } = this.props;
+      const responseCode = 3;
+      if (Results.response_code === responseCode) {
+        return history.push('/');
+      }
 
-    const ONE_SECOND = 1000;
-
+      const oneSecond= 1000;
       this.intervalID = setInterval(() => {
-        this.setState((prevState) => ({ seconds: prevState.seconds - 1 }) );
-      }, ONE_SECOND);
-    }
+        const {seconds} = this.state;
+        const timeLimit = 0
+        if(seconds === timeLimit) {
+          this.setState ({ disabledButtonAnswers: true })
+        } else { 
+          this.setState((prevState) => ({ seconds: prevState.seconds - 1 }) );
+      }
+   }, oneSecond);
+ }
   
-  componentDidUpdate() {
-  
-    const { seconds } = this.state;
-    const TIME_LIMIT = 0;
-    
-    if (seconds === TIME_LIMIT) {
-       clearInterval(this.intervalID);
-
-      //  this.setState ({ disabledButtonAnswers: true })
-      
-
-    }    
-  }
-
-
   shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i -= 1) {
       // Generate random number
@@ -65,6 +55,7 @@ class Game extends Component {
   handleColor = () => {
     this.setState({
       clickAnswer: true,
+      disabledButtonAnswers: true,
     });
   };
 
