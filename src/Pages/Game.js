@@ -177,9 +177,7 @@ class Game extends Component {
 
   render() {
     const { Results } = this.props;
-
     const { index, seconds, clickAnswer } = this.state;
-    
     const responseCode = 3;
     return (
       <section>
