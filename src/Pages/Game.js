@@ -50,11 +50,20 @@ class Game extends Component {
     return array;
   };
 
-  // handleIncrementIndex = () => {
-  //   const number = 4;
-  //   this.setState((prevState) => ({ index: prevState.index === number
-  //     ? prevState.index : prevState.index + 1 }));
-  // };
+  handleIncrementIndex = async () => {
+    const number = 4;
+    await this.setState((prevState) => ({ index: prevState.index === number
+      ? prevState.index : prevState.index + 1,
+    clickAnswer: false,
+    }));
+
+    // FUNÇÃO QUE REDIRECIONA PARA O FEEDBACK
+    // const { index } = this.state;
+    // if (index === number) {
+    //   const { history } = this.props;
+    //   history.push('/feedback');
+    // }
+  };
 
   handleColor = () => {
     this.setState({
@@ -168,7 +177,9 @@ class Game extends Component {
 
   render() {
     const { Results } = this.props;
-    const { index, seconds } = this.state;
+
+    const { index, seconds, clickAnswer } = this.state;
+    
     const responseCode = 3;
     return (
       <section>
@@ -179,6 +190,15 @@ class Game extends Component {
               ? this.handlMultipleQuestions() : (
                 this.handleBooleanQuestions()
               ))}
+          {clickAnswer && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.handleIncrementIndex }
+            >
+              Next
+            </button>
+          )}
         </div>
         <h2>{ seconds }</h2>
       </section>
