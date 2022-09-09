@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { fetchApi, getEmail, getName } from '../redux/actions';
+=======
+import { fetchApi, fetchApiResult } from '../redux/actions';
+>>>>>>> d4e3ac5 (Requisito 6 main group 20)
 
 class Login extends Component {
   state = {
@@ -40,10 +44,16 @@ class Login extends Component {
   handleClickSubmit = async (event) => {
     event.preventDefault();
     const { history, dispatch } = this.props;
+<<<<<<< HEAD
     const { name, email } = this.state;
     dispatch(getName(name));
     dispatch(getEmail(email));
     await dispatch(fetchApi());
+=======
+    await dispatch(fetchApi());
+    const token = localStorage.getItem('token');
+    await dispatch(fetchApiResult(token));
+>>>>>>> d4e3ac5 (Requisito 6 main group 20)
     history.push('/game');
   };
 
@@ -110,4 +120,8 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(Login);
+const mapStateToProps = (state) => ({
+  Results: state.user.results,
+});
+
+export default connect(mapStateToProps, null)(Login);
