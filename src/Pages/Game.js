@@ -15,24 +15,28 @@ class Game extends Component {
   }
 
   componentDidMount() {
-      const { Results, history } = this.props;
-      const responseCode = 3;
-      if (Results.response_code === responseCode) {
-        return history.push('/');
-      }
+    const { Results, history } = this.props;
+    const responseCode = 3;
+    if (Results.response_code === responseCode) {
+      return history.push('/');
+    }
 
-      const oneSecond= 1000;
-      this.intervalID = setInterval(() => {
-        const {seconds} = this.state;
-        const timeLimit = 0
-        if(seconds === timeLimit) {
-          this.setState ({ disabledButtonAnswers: true })
-        } else { 
-          this.setState((prevState) => ({ seconds: prevState.seconds - 1 }) );
+    const oneSecond = 1000;
+    this.intervalID = setInterval(() => {
+      const { seconds } = this.state;
+      const timeLimit = 0;
+      if (seconds === timeLimit) {
+        this.setState({ disabledButtonAnswers: true });
+      } else {
+        this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
       }
-   }, oneSecond);
- }
-  
+    }, oneSecond);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
   shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i -= 1) {
       // Generate random number
@@ -70,7 +74,7 @@ class Game extends Component {
         key="0"
         data-testid="correct-answer"
         style={ clickAnswer ? { border: colorCorrectAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
@@ -81,7 +85,7 @@ class Game extends Component {
         key="1"
         data-testid="wrong-answer-0"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
@@ -91,7 +95,7 @@ class Game extends Component {
         key="2"
         data-testid="wrong-answer-1"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[1]}
@@ -102,7 +106,7 @@ class Game extends Component {
         key="3"
         data-testid="wrong-answer-2"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[2]}
@@ -133,7 +137,7 @@ class Game extends Component {
         key="0"
         data-testid="correct-answer"
         style={ clickAnswer ? { border: colorCorrectAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
@@ -144,7 +148,7 @@ class Game extends Component {
         key="1"
         data-testid="wrong-answer-0"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        disabled ={ disabledButtonAnswers }
+        disabled={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
