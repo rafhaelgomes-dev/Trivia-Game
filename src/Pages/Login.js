@@ -50,7 +50,6 @@ class Login extends Component {
   handleClickConfig = (event) => {
     event.preventDefault();
     const { history } = this.props;
-
     history.push('/config');
   };
 
