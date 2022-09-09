@@ -71,10 +71,8 @@ describe('Test login page', () => {
     userEvent.type(name, nameValid);
 
     const buttonPlay = screen.getByTestId("btn-play");
-    await waitFor(() => {
-      userEvent.click(buttonPlay);
-      expect(buttonPlay).not.toBeInTheDocument();
-    })
+    userEvent.click(buttonPlay);
+    await (waitFor(() => expect(buttonPlay).not.toBeInTheDocument(), {timeout:3000}));
     expect(history.location.pathname).toBe('/game');
   })
 
