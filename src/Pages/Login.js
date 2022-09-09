@@ -44,7 +44,6 @@ class Login extends Component {
     dispatch(getName(name));
     dispatch(getEmail(email));
     await dispatch(fetchApi());
-    await dispatch(fetchApi());
     const token = localStorage.getItem('token');
     await dispatch(fetchApiResult(token));
     history.push('/game');
