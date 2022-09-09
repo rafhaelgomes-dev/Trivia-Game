@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 import Login from '../../Pages/Login';
@@ -56,7 +56,7 @@ describe('Test login page', () => {
     expect(buttonPlay).toBeEnabled();
   })
 
-  test("Verifica se ao clicar no botão play redireciona para a rota '/game'", () => {
+  test("Verifica se ao clicar no botão play redireciona para a rota '/game'", async () => {
     const pathHome = '/';
     const { history } = renderWithRouterAndRedux(
       <App />,
@@ -71,8 +71,10 @@ describe('Test login page', () => {
     userEvent.type(name, nameValid);
 
     const buttonPlay = screen.getByTestId("btn-play");
-    userEvent.click(buttonPlay);
-    history.push('/game');
+    await waitFor(() => {
+      userEvent.click(buttonPlay);
+      expect(buttonPlay).not.toBeInTheDocument();
+    })
     expect(history.location.pathname).toBe('/game');
   })
 
@@ -87,8 +89,6 @@ describe('Test login page', () => {
     expect(buttonConfig).toBeInTheDocument();
     userEvent.click(buttonConfig);
     expect(history.location.pathname).toEqual('/config');
-   
-    
   })
 
   test('Verifica se ao clicar no botão play o estado global é atualizado', () => {
