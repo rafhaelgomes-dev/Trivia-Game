@@ -8,6 +8,7 @@ class Game extends Component {
     super();
     this.state = {
       index: 0,
+      clickAnswer: false,
     };
   }
 
@@ -32,19 +33,30 @@ class Game extends Component {
     return array;
   };
 
-  handleIncrementIndex = () => {
-    this.setState((prevState) => ({ index: prevState.index + 1 }));
+  // handleIncrementIndex = () => {
+  //   const number = 4;
+  //   this.setState((prevState) => ({ index: prevState.index === number
+  //     ? prevState.index : prevState.index + 1 }));
+  // };
+
+  handleColor = () => {
+    this.setState({
+      clickAnswer: true,
+    });
   };
 
   handlMultipleQuestions = () => {
     const { Results } = this.props;
-    const { index } = this.state;
+    const { index, clickAnswer } = this.state;
+    const colorWrongAnswer = '3px solid red';
+    const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
     const botoes = [
       <button
         type="button"
         key="0"
         data-testid="correct-answer"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorCorrectAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
 
@@ -53,16 +65,17 @@ class Game extends Component {
         type="button"
         key="1"
         data-testid="wrong-answer-0"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
-
       </button>,
       <button
         type="button"
         key="2"
         data-testid="wrong-answer-1"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[1]}
 
@@ -71,7 +84,8 @@ class Game extends Component {
         type="button"
         key="3"
         data-testid="wrong-answer-2"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[2]}
 
@@ -92,13 +106,16 @@ class Game extends Component {
 
   handleBooleanQuestions = () => {
     const { Results } = this.props;
-    const { index } = this.state;
+    const { index, clickAnswer } = this.state;
+    const colorWrongAnswer = '3px solid red';
+    const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
     const botoes = [
       <button
         type="button"
         key="0"
         data-testid="correct-answer"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorCorrectAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
 
@@ -107,7 +124,8 @@ class Game extends Component {
         type="button"
         key="1"
         data-testid="wrong-answer-0"
-        onClick={ this.handleIncrementIndex }
+        style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
 
