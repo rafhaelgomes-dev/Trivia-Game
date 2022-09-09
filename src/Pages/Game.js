@@ -9,6 +9,8 @@ class Game extends Component {
     this.state = {
       index: 0,
       clickAnswer: false,
+      seconds: 5,
+      disabledButtonAnswers: false,
     };
   }
 
@@ -18,7 +20,28 @@ class Game extends Component {
     if (Results.response_code === responseCode) {
       return history.push('/');
     }
+
+    const ONE_SECOND = 1000;
+
+      this.intervalID = setInterval(() => {
+        this.setState((prevState) => ({ seconds: prevState.seconds - 1 }) );
+      }, ONE_SECOND);
+    }
+  
+  componentDidUpdate() {
+  
+    const { seconds } = this.state;
+    const TIME_LIMIT = 0;
+    
+    if (seconds === TIME_LIMIT) {
+       clearInterval(this.intervalID);
+
+      //  this.setState ({ disabledButtonAnswers: true })
+      
+
+    }    
   }
+
 
   shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i -= 1) {
@@ -47,7 +70,7 @@ class Game extends Component {
 
   handlMultipleQuestions = () => {
     const { Results } = this.props;
-    const { index, clickAnswer } = this.state;
+    const { index, clickAnswer, disabledButtonAnswers } = this.state;
     const colorWrongAnswer = '3px solid red';
     const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
     const botoes = [
@@ -56,6 +79,7 @@ class Game extends Component {
         key="0"
         data-testid="correct-answer"
         style={ clickAnswer ? { border: colorCorrectAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
@@ -66,6 +90,7 @@ class Game extends Component {
         key="1"
         data-testid="wrong-answer-0"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
@@ -75,6 +100,7 @@ class Game extends Component {
         key="2"
         data-testid="wrong-answer-1"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[1]}
@@ -85,6 +111,7 @@ class Game extends Component {
         key="3"
         data-testid="wrong-answer-2"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[2]}
@@ -106,7 +133,7 @@ class Game extends Component {
 
   handleBooleanQuestions = () => {
     const { Results } = this.props;
-    const { index, clickAnswer } = this.state;
+    const { index, clickAnswer, disabledButtonAnswers } = this.state;
     const colorWrongAnswer = '3px solid red';
     const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
     const botoes = [
@@ -115,6 +142,7 @@ class Game extends Component {
         key="0"
         data-testid="correct-answer"
         style={ clickAnswer ? { border: colorCorrectAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].correct_answer}
@@ -125,6 +153,7 @@ class Game extends Component {
         key="1"
         data-testid="wrong-answer-0"
         style={ clickAnswer ? { border: colorWrongAnswer } : null }
+        disabled ={ disabledButtonAnswers }
         onClick={ this.handleColor }
       >
         {Results.results[index].incorrect_answers[0]}
@@ -144,7 +173,7 @@ class Game extends Component {
 
   render() {
     const { Results } = this.props;
-    const { index } = this.state;
+    const { index, seconds } = this.state;
     const responseCode = 3;
     return (
       <section>
@@ -156,6 +185,7 @@ class Game extends Component {
                 this.handleBooleanQuestions()
               ))}
         </div>
+        <h2>{ seconds }</h2>
       </section>
     );
   }
