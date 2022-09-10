@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
+import AnswerButtons from '../Components/AnswerButtons';
 
 class Game extends Component {
   constructor() {
     super();
+    const number = 3;
     this.state = {
       index: 0,
       clickAnswer: false,
-      botoesOrdemAtual: undefined,
-      botoesOrdemAtual2: undefined,
+      seconds: 30,
+      disabledButtonAnswers: false,
+      respostasMulti: [],
+      respostasBollen: [],
+      multipleRandomArray: [1, 2, 0, number],
+      booleanRandomArray: [0, 1],
     };
   }
 
@@ -20,66 +26,24 @@ class Game extends Component {
     if (Results.response_code === responseCode) {
       return history.push('/');
     }
-    const array = this.shuffleArray();
-    this.setState({
-      botoesOrdemAtual: array,
-    });
+    const oneSecond = 1000;
+    this.intervalID = setInterval(async () => {
+      const { seconds } = this.state;
+      const timeLimit = 0;
+      if (seconds === timeLimit) {
+        this.setState({ disabledButtonAnswers: true });
+      } else {
+        this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+      }
+    }, oneSecond);
+    this.handleSetState();
   }
 
-  shuffleArray = () => {
-    const { index, clickAnswer } = this.state;
-    const colorWrongAnswer = '3px solid red';
-    const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
-    const { Results } = this.props;
-    if (Results.results[index].incorrect_answers.length === 1) {
-      console.log(Results.results[index].incorrect_answers.length);
-      const array = this.shuffleArray2();
-      console.log(array);
-      this.setState({
-        botoesOrdemAtual2: array,
-      });
-    }
-    const array = [
-      <button
-        type="button"
-        key="0"
-        data-testid="correct-answer"
-        style={ clickAnswer ? { border: colorCorrectAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].correct_answer}
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
 
-      </button>,
-      <button
-        type="button"
-        key="1"
-        data-testid="wrong-answer-0"
-        style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].incorrect_answers[0]}
-      </button>,
-      <button
-        type="button"
-        key="2"
-        data-testid="wrong-answer-1"
-        style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].incorrect_answers[1]}
-
-      </button>,
-      <button
-        type="button"
-        key="3"
-        data-testid="wrong-answer-2"
-        style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].incorrect_answers[2]}
-
-      </button>,
-    ];
+  shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i -= 1) {
       // Generate random number
       const j = Math.floor(Math.random() * (i + 1));
@@ -88,43 +52,7 @@ class Game extends Component {
       array[i] = array[j];
       array[j] = temp;
     }
-    return array;
-  };
 
-  shuffleArray2 = () => {
-    const { index, clickAnswer } = this.state;
-    const colorWrongAnswer = '3px solid red';
-    const colorCorrectAnswer = '3px solid rgb(6, 240, 15)';
-    const { Results } = this.props;
-    const array = [
-      <button
-        type="button"
-        key="0"
-        data-testid="correct-answer"
-        style={ clickAnswer ? { border: colorCorrectAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].correct_answer}
-
-      </button>,
-      <button
-        type="button"
-        key="1"
-        data-testid="wrong-answer-0"
-        style={ clickAnswer ? { border: colorWrongAnswer } : null }
-        onClick={ this.handleColor }
-      >
-        {Results.results[index].incorrect_answers[0]}
-      </button>,
-    ];
-    for (let i = array.length - 1; i > 0; i -= 1) {
-      // Generate random number
-      const j = Math.floor(Math.random() * (i + 1));
-
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
     return array;
   };
 
@@ -134,17 +62,60 @@ class Game extends Component {
       ? prevState.index : prevState.index + 1,
     clickAnswer: false,
     }));
-    const array = this.shuffleArray();
-    this.setState({
-      botoesOrdemAtual: array,
-    });
-
+    this.handleSetState();
     // FUNÇÃO QUE REDIRECIONA PARA O FEEDBACK
     // const { index } = this.state;
     // if (index === number) {
     //   const { history } = this.props;
     //   history.push('/feedback');
     // }
+  };
+
+  handleSetState = () => {
+    const { Results } = this.props;
+    const { index, multipleRandomArray, booleanRandomArray } = this.state;
+    const array = this.shuffleArray(multipleRandomArray);
+    const array2 = this.shuffleArray(booleanRandomArray);
+    const colorCorrectAnswer = '3px solid rgb(6, 240, 15';
+    const colorWrongAnswer = '3px solid red';
+    this.setState({
+      respostasMulti: [
+        {
+          resposta: Results.results[index].correct_answer,
+          dataTesting: 'correct-answer',
+          color: colorCorrectAnswer,
+        },
+        {
+          resposta: Results.results[index].incorrect_answers[0],
+          dataTesting: 'wrong-answer-0',
+          color: colorWrongAnswer,
+        },
+        {
+          resposta: Results.results[index].incorrect_answers[1],
+          dataTesting: 'wrong-answer-1',
+          color: colorWrongAnswer,
+        },
+        {
+          resposta: Results.results[index].incorrect_answers[2],
+          dataTesting: 'wrong-answer-2',
+          color: colorWrongAnswer,
+        },
+      ],
+      respostasBollen: [
+        {
+          resposta: Results.results[index].correct_answer,
+          dataTesting: 'correct-answer',
+          color: colorCorrectAnswer,
+        },
+        {
+          resposta: Results.results[index].incorrect_answers[0],
+          dataTesting: 'wrong-answer-0',
+          color: colorWrongAnswer,
+        },
+      ],
+      multipleRandomArray: array,
+      booleanRandomArray: array2,
+    });
   };
 
   handleColor = () => {
@@ -155,41 +126,33 @@ class Game extends Component {
 
   render() {
     const { Results } = this.props;
-    const { index, clickAnswer, botoesOrdemAtual, botoesOrdemAtual2 } = this.state;
-    const responseCode = 3;
-    if (botoesOrdemAtual === undefined) {
+    const { index,
+      clickAnswer,
+      disabledButtonAnswers,
+      seconds, respostasBollen, respostasMulti,
+      multipleRandomArray, booleanRandomArray } = this.state;
+    const color = '3px solid rgb(6, 240, 15';
+    if
+    (Results === undefined
+    || respostasMulti.length === 0 || respostasBollen.length === 0) {
       return <p>Carregando</p>;
     }
     return (
       <section>
         <Header />
         <div>
-          {Results.response_code !== responseCode && (
-            Results.results[index].type === 'multiple'
-              ? (
-                <div data-testid="answer-options">
-                  <p data-testid="question-category">{Results.results[index].category}</p>
-                  <p data-testid="question-text">{Results.results[index].question}</p>
-                  {botoesOrdemAtual[0]}
-                  {botoesOrdemAtual[1]}
-                  {botoesOrdemAtual[2]}
-                  {botoesOrdemAtual[3]}
-                </div>
-              ) : (
-                (
-                  <div data-testid="answer-options">
-                    <p
-                      data-testid="question-category"
-                    >
-                      {Results.results[index].category}
-
-                    </p>
-                    <p data-testid="question-text">{Results.results[index].question}</p>
-                    {botoesOrdemAtual2[0]}
-                    {botoesOrdemAtual2[1]}
-                  </div>
-                )
-              ))}
+          <AnswerButtons
+            Results={ Results }
+            index={ index }
+            disabledButtonAnswers={ disabledButtonAnswers }
+            respostasMulti={ respostasMulti }
+            color={ color }
+            handleColor={ this.handleColor }
+            respostasBollen={ respostasBollen }
+            clickAnswer={ clickAnswer }
+            multipleRandomArray={ multipleRandomArray }
+            booleanRandomArray={ booleanRandomArray }
+          />
           {clickAnswer && (
             <button
               type="button"
@@ -199,6 +162,7 @@ class Game extends Component {
               Next
             </button>
           )}
+          <h2>{ seconds }</h2>
         </div>
       </section>
     );
