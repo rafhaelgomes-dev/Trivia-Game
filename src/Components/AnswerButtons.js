@@ -8,31 +8,105 @@ const NUMBER_TEN = 10;
 const ZERO = 0;
 
 class AnswerButtons extends Component {
+  // state = {
+  //   score: 0,
+  // };
   handleClick = ({ target }) => {
     const { handleColor, dispatch, Results, index, seconds } = this.props;
     const { results } = Results;
     handleColor();
 
     if (target.name === 'easy') {
-      const easy = 1;
-      return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * easy), 10)))
+      const easy = NUMBER_TEN + (seconds * 1);
+
+      return results[index].correct_answer === target.textContent
+        ? dispatch(changeScore(easy))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'medium') {
-      const medium = 2;
-      return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10)
-        + parseInt((seconds * medium), 10)))
+      const medium = NUMBER_TEN + (seconds * 2);
+
+      return results[index].correct_answer === target.textContent
+        ? dispatch(changeScore(medium))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'hard') {
-      return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10)
-        + parseInt((seconds * NUMBER_THREE), 10)))
+      const hard = NUMBER_TEN + (seconds * NUMBER_THREE);
+
+      return results[index].correct_answer === target.textContent
+        ? dispatch(changeScore(hard))
         : dispatch(changeScore(ZERO));
     }
   };
+  // handleClick = ({ target }) => {
+  //   const { handleColor, dispatch, Results, index, seconds } = this.props;
+  //   const { score } = this.state;
+  //   const { results } = Results;
+  //   handleColor();
+  //   console.log('difficult', target.name);
+  //   console.log('difficult', target.value);
+  //   console.log('texto botão(resposta)', target.innerHTML);
+  //   console.log('Resposta da API', results[index].correct_answer);
+
+  //   if (target.name === 'easy') {
+  //     const easy = NUMBER_TEN + (seconds * 1);
+  //     const result = results[index].correct_answer
+  //     === target.innerHTML ? easy : ZERO;
+
+  //     this.setState(
+  //       (prevState) => ({ score: prevState.score + result }),
+  //       () => dispatch(changeScore(score)),
+  //     );
+  //   }
+  //   if (target.name === 'medium') {
+  //     const medium = NUMBER_TEN + (seconds * 2);
+  //     const result = results[index].correct_answer
+  //     === target.innerHTML ? medium : ZERO;
+
+  //     this.setState(
+  //       (prevState) => ({ score: prevState.score + result }),
+  //       () => dispatch(changeScore(score)),
+  //     );
+  //   }
+  //   if (target.name === 'hard') {
+  //     const hard = NUMBER_TEN + (seconds * NUMBER_THREE);
+  //     const result = results[index].correct_answer
+  //     === target.innerHTML ? hard : ZERO;
+
+  //     this.setState(
+  //       (prevState) => ({ score: prevState.score + result }),
+  //       () => dispatch(changeScore(score)),
+  //     );
+  //   }
+  // };
+  // handleClick = ({ target }) => {
+  //   const { handleColor,
+  //     dispatch,
+  //     Results,
+  //     index,
+  //     seconds,
+  //   } = this.props;
+  //   const { results } = Results;
+  //   const difficults = { easy: 1, medium: 2, hard: 3 };
+  //   console.log('Resposta correta', results[index].correct_answer);
+  //   console.log('Resposta clicada', target.name);
+
+  //   handleColor();
+
+  //   if (results[index].correct_answer === target.name) {
+  //     const easy = NUMBER_TEN + (seconds * difficults[results[index].difficulty]);
+  //     dispatch(changeScore(easy));
+  //   }
+  //   if (results[index].correct_answer === target.name) {
+  //     const medium = NUMBER_TEN + (seconds * difficults[results[index].difficulty]);
+  //     dispatch(changeScore(medium));
+  //   }
+  //   if (results[index].correct_answer === target.name) {
+  //     const hard = NUMBER_TEN + (seconds * difficults[results[index].difficulty]);
+  //     dispatch(changeScore(hard));
+  //   }
+  //   dispatch(changeScore(ZERO));
+  // };
 
   render() {
     const { Results,
@@ -84,6 +158,7 @@ class AnswerButtons extends Component {
               <button
                 key={ item }
                 type="button"
+                name={ results[item].difficulty }
                 data-testid={ respostasMulti[booleanRandomArray[item]].dataTesting }
                 style={ clickAnswer
                   ? { border: respostasMulti[booleanRandomArray[item]].color } : null }

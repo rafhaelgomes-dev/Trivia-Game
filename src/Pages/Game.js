@@ -4,21 +4,18 @@ import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import AnswerButtons from '../Components/AnswerButtons';
 
+const NUMBER_THREE = 3;
 class Game extends Component {
-  constructor() {
-    super();
-    const number = 3;
-    this.state = {
-      index: 0,
-      clickAnswer: false,
-      seconds: 30,
-      disabledButtonAnswers: false,
-      respostasMulti: [],
-      respostasBollen: [],
-      multipleRandomArray: [1, 2, 0, number],
-      booleanRandomArray: [0, 1],
-    };
-  }
+  state = {
+    index: 0,
+    clickAnswer: false,
+    seconds: 30,
+    disabledButtonAnswers: false,
+    respostasMulti: [],
+    respostasBollen: [],
+    multipleRandomArray: [1, 2, 0, NUMBER_THREE],
+    booleanRandomArray: [0, 1],
+  };
 
   componentDidMount() {
     const { Results, history } = this.props;
@@ -58,15 +55,15 @@ class Game extends Component {
 
   handleIncrementIndex = async () => {
     const { index } = this.state;
-    const number = 4;
+    const NUMBER_FOUR = 4;
 
     await this.setState((prevState) => ({
-      index: prevState.index === number ? prevState.index : prevState.index + 1,
+      index: prevState.index === NUMBER_FOUR ? prevState.index : prevState.index + 1,
       clickAnswer: false,
     }), this.setState({ seconds: 30, disabledButtonAnswers: false }));
     this.handleSetState();
 
-    if (index === number) {
+    if (index === NUMBER_FOUR) {
       const { history } = this.props;
       history.push('/feedback');
     }
