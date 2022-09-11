@@ -3,6 +3,7 @@ import { REQUEST_API,
   GET_NAME, GET_EMAIL,
   RESULT_API,
   CHANGE_SCORE,
+  COUNTER,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   email: '',
   token: '',
   score: 0,
+  count: 0,
   results: {},
 };
 
@@ -33,6 +35,11 @@ function player(state = INITIAL_STATE, action) {
     return {
       ...state,
       email: action.email,
+    };
+  case COUNTER:
+    return {
+      ...state,
+      count: action.count,
     };
   case RESULT_API:
     return {
