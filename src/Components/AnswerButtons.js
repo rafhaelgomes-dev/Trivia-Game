@@ -4,59 +4,40 @@ import PropTypes from 'prop-types';
 class AnswerButtons extends Component {
   render() {
     const { Results,
-      index, respostasMulti,
+      index,
+      respostasMulti,
       respostasBollen,
       disabledButtonAnswers,
-      handleColor, clickAnswer, multipleRandomArray, booleanRandomArray } = this.props;
+      handleColor,
+      clickAnswer,
+      multipleRandomArray,
+      booleanRandomArray,
+    } = this.props;
+
+    const NUMBER_THREE = 3;
+    const indexArrMulti = [0, 1, 2, NUMBER_THREE];
+    const indexArrDuo = [0, 1];
+
     return (
       <section>
         {Results.results[index].type === 'multiple' ? (
           <div data-testid="answer-options">
             <p data-testid="question-category">{Results.results[index].category}</p>
             <p data-testid="question-text">{Results.results[index].question}</p>
-            <button
-              type="button"
-              data-testid={ respostasMulti[multipleRandomArray[0]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[multipleRandomArray[0]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasMulti[multipleRandomArray[0]].resposta}
+            {indexArrMulti.map((item) => (
+              <button
+                key={ item }
+                type="button"
+                data-testid={ respostasMulti[multipleRandomArray[item]].dataTesting }
+                style={ clickAnswer
+                  ? { border: respostasMulti[multipleRandomArray[item]].color } : null }
+                disabled={ disabledButtonAnswers }
+                onClick={ handleColor }
+              >
+                {respostasMulti[multipleRandomArray[item]].resposta}
+              </button>
+            ))}
 
-            </button>
-            <button
-              type="button"
-              data-testid={ respostasMulti[multipleRandomArray[1]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[multipleRandomArray[1]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasMulti[multipleRandomArray[1]].resposta}
-            </button>
-            <button
-              type="button"
-              data-testid={ respostasMulti[multipleRandomArray[2]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[multipleRandomArray[2]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasMulti[multipleRandomArray[2]].resposta}
-
-            </button>
-            <button
-              type="button"
-              data-testid={ respostasMulti[multipleRandomArray[3]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[multipleRandomArray[3]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasMulti[multipleRandomArray[3]].resposta}
-
-            </button>
           </div>
         ) : (
           <div data-testid="answer-options">
@@ -64,30 +45,22 @@ class AnswerButtons extends Component {
               data-testid="question-category"
             >
               {Results.results[index].category}
-
             </p>
-            <p data-testid="question-text">{Results.results[index].question}</p>
-            <button
-              type="button"
-              data-testid={ respostasMulti[booleanRandomArray[0]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[booleanRandomArray[0]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasBollen[booleanRandomArray[0]].resposta}
 
-            </button>
-            <button
-              type="button"
-              data-testid={ respostasMulti[booleanRandomArray[1]].dataTesting }
-              style={ clickAnswer
-                ? { border: respostasMulti[booleanRandomArray[1]].color } : null }
-              disabled={ disabledButtonAnswers }
-              onClick={ handleColor }
-            >
-              {respostasBollen[booleanRandomArray[1]].resposta}
-            </button>
+            <p data-testid="question-text">{Results.results[index].question}</p>
+            {indexArrDuo.map((item) => (
+              <button
+                key={ item }
+                type="button"
+                data-testid={ respostasMulti[booleanRandomArray[item]].dataTesting }
+                style={ clickAnswer
+                  ? { border: respostasMulti[booleanRandomArray[item]].color } : null }
+                disabled={ disabledButtonAnswers }
+                onClick={ handleColor }
+              >
+                {respostasBollen[booleanRandomArray[item]].resposta}
+              </button>
+            ))}
           </div>
         )}
       </section>
