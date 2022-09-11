@@ -15,17 +15,18 @@ class AnswerButtons extends Component {
 
     if (target.name === 'easy') {
       return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(NUMBER_TEN + (seconds * 1)))
+        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * 1), 10)))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'medium') {
       return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(NUMBER_TEN + (seconds * 2)))
+        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * 2), 10)))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'hard') {
       return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(NUMBER_TEN + (seconds * NUMBER_THREE)))
+        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10)
+        + parseInt((seconds * NUMBER_THREE), 10)))
         : dispatch(changeScore(ZERO));
     }
   };

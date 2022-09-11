@@ -57,18 +57,19 @@ class Game extends Component {
   };
 
   handleIncrementIndex = async () => {
+    const { index } = this.state;
     const number = 4;
+
     await this.setState((prevState) => ({ index: prevState.index === number
       ? prevState.index : prevState.index + 1,
     clickAnswer: false,
     }), this.setState({ seconds: 30, disabledButtonAnswers: false }));
     this.handleSetState();
-    // FUNÇÃO QUE REDIRECIONA PARA O FEEDBACK
-    // const { index } = this.state;
-    // if (index === number) {
-    //   const { history } = this.props;
-    //   history.push('/feedback');
-    // }
+
+    if (index === number) {
+      const { history } = this.props;
+      history.push('/feedback');
+    }
   };
 
   handleSetState = () => {
