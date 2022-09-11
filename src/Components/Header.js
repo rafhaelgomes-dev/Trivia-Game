@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { name } = this.props;
+    const { name, score } = this.props;
     // const hashEmail = md5(email).toString();
 
     return (
@@ -18,18 +18,24 @@ class Header extends Component {
         <h2 data-testid="header-player-name">
           { name }
         </h2>
-        <h2 data-testid="header-score"> 0 </h2>
+        <h2 data-testid="header-score">
+          {' '}
+          { score }
+          {' '}
+        </h2>
       </section>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  name: state.user.name,
+  name: state.player.name,
+  score: state.player.score,
 });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
   // email: PropTypes.string.isRequired,
 };
 

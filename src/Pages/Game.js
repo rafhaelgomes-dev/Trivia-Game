@@ -56,12 +56,12 @@ class Game extends Component {
     return array;
   };
 
-  handleIncrementIndex = () => {
+  handleIncrementIndex = async () => {
     const number = 4;
-    this.setState((prevState) => ({ index: prevState.index === number
+    await this.setState((prevState) => ({ index: prevState.index === number
       ? prevState.index : prevState.index + 1,
     clickAnswer: false,
-    }), this.setState({ seconds: 30 }));
+    }), this.setState({ seconds: 30, disabledButtonAnswers: false }));
     this.handleSetState();
     // FUNÇÃO QUE REDIRECIONA PARA O FEEDBACK
     // const { index } = this.state;
@@ -152,6 +152,7 @@ class Game extends Component {
             clickAnswer={ clickAnswer }
             multipleRandomArray={ multipleRandomArray }
             booleanRandomArray={ booleanRandomArray }
+            seconds={ seconds }
           />
           {clickAnswer && (
             <button
@@ -177,8 +178,8 @@ Game.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  Results: state.user.results,
-  Token: state.user.token,
+  Results: state.player.results,
+  Token: state.player.token,
 });
 
 export default connect(mapStateToProps, null)(Game);
