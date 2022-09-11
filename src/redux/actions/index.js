@@ -23,7 +23,6 @@ export function fetchApi() {
       return dispatch(responseApi(result));
     } catch (error) {
       dispatch(getError(error.message));
-      console.log(error.message);
     }
   };
 }
