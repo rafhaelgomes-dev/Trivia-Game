@@ -14,13 +14,16 @@ class AnswerButtons extends Component {
     handleColor();
 
     if (target.name === 'easy') {
+      const easy = 1;
       return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * 1), 10)))
+        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * easy), 10)))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'medium') {
+      const medium = 2;
       return results[index].correct_answer === target.innerHTML
-        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10) + parseInt((seconds * 2), 10)))
+        ? dispatch(changeScore(parseInt(NUMBER_TEN, 10)
+        + parseInt((seconds * medium), 10)))
         : dispatch(changeScore(ZERO));
     }
     if (target.name === 'hard') {

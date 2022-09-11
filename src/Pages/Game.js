@@ -60,9 +60,9 @@ class Game extends Component {
     const { index } = this.state;
     const number = 4;
 
-    await this.setState((prevState) => ({ index: prevState.index === number
-      ? prevState.index : prevState.index + 1,
-    clickAnswer: false,
+    await this.setState((prevState) => ({
+      index: prevState.index === number ? prevState.index : prevState.index + 1,
+      clickAnswer: false,
     }), this.setState({ seconds: 30, disabledButtonAnswers: false }));
     this.handleSetState();
 
@@ -130,8 +130,12 @@ class Game extends Component {
     const { index,
       clickAnswer,
       disabledButtonAnswers,
-      seconds, respostasBollen, respostasMulti,
-      multipleRandomArray, booleanRandomArray } = this.state;
+      seconds,
+      respostasBollen,
+      respostasMulti,
+      multipleRandomArray,
+      booleanRandomArray,
+    } = this.state;
     const color = '3px solid rgb(6, 240, 15';
     if
     (Results === undefined
