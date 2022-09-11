@@ -56,19 +56,20 @@ class Game extends Component {
     return array;
   };
 
-  handleIncrementIndex = () => {
+  handleIncrementIndex = async () => {
+    const { index } = this.state;
     const number = 4;
-    this.setState((prevState) => ({ index: prevState.index === number
-      ? prevState.index : prevState.index + 1,
-    clickAnswer: false,
-    }), this.setState({ seconds: 30 }));
+
+    await this.setState((prevState) => ({
+      index: prevState.index === number ? prevState.index : prevState.index + 1,
+      clickAnswer: false,
+    }), this.setState({ seconds: 30, disabledButtonAnswers: false }));
     this.handleSetState();
-    // FUNÇÃO QUE REDIRECIONA PARA O FEEDBACK
-    // const { index } = this.state;
-    // if (index === number) {
-    //   const { history } = this.props;
-    //   history.push('/feedback');
-    // }
+
+    if (index === number) {
+      const { history } = this.props;
+      history.push('/feedback');
+    }
   };
 
   handleSetState = () => {
@@ -129,8 +130,12 @@ class Game extends Component {
     const { index,
       clickAnswer,
       disabledButtonAnswers,
-      seconds, respostasBollen, respostasMulti,
-      multipleRandomArray, booleanRandomArray } = this.state;
+      seconds,
+      respostasBollen,
+      respostasMulti,
+      multipleRandomArray,
+      booleanRandomArray,
+    } = this.state;
     const color = '3px solid rgb(6, 240, 15';
     if
     (Results === undefined
@@ -152,6 +157,7 @@ class Game extends Component {
             clickAnswer={ clickAnswer }
             multipleRandomArray={ multipleRandomArray }
             booleanRandomArray={ booleanRandomArray }
+            seconds={ seconds }
           />
           {clickAnswer && (
             <button
@@ -177,8 +183,8 @@ Game.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  Results: state.user.results,
-  Token: state.user.token,
+  Results: state.player.results,
+  Token: state.player.token,
 });
 
 export default connect(mapStateToProps, null)(Game);

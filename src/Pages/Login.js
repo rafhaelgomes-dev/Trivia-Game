@@ -113,7 +113,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  Results: state.user.results,
+  Results: state.player.results,
 });
 
 export default connect(mapStateToProps, null)(Login);

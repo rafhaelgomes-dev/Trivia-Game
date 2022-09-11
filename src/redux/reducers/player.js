@@ -1,14 +1,19 @@
 import { REQUEST_API,
-  RESPONSE_API, GET_NAME, GET_EMAIL, RESULT_API } from '../actions/index';
+  RESPONSE_API,
+  GET_NAME, GET_EMAIL,
+  RESULT_API,
+  CHANGE_SCORE,
+} from '../actions/index';
 
 const INITIAL_STATE = {
   name: '',
   email: '',
   token: '',
+  score: 0,
   results: {},
 };
 
-function user(state = INITIAL_STATE, action) {
+function player(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_API:
     return {
@@ -34,9 +39,14 @@ function user(state = INITIAL_STATE, action) {
       ...state,
       results: action.payload,
     };
+  case CHANGE_SCORE:
+    return {
+      ...state,
+      score: state.score + action.score,
+    };
   default:
     return state;
   }
 }
 
-export default user;
+export default player;

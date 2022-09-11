@@ -4,6 +4,7 @@ export const RESULT_API = 'RESULT_API';
 export const GET_ERROR = 'GET_ERROR';
 export const GET_NAME = 'GET_NAME';
 export const GET_EMAIL = 'GET_EMAIL';
+export const CHANGE_SCORE = 'CHANGE_SCORE';
 
 export const requestApi = () => ({ type: REQUEST_API });
 export const responseApi = (payload) => ({ type: RESPONSE_API, payload });
@@ -11,6 +12,7 @@ export const resultApi = (payload) => ({ type: RESULT_API, payload });
 export const getError = (payload) => ({ type: GET_ERROR, payload });
 export const getName = (name) => ({ type: GET_NAME, name });
 export const getEmail = (email) => ({ type: GET_EMAIL, email });
+export const changeScore = (score) => ({ type: CHANGE_SCORE, score });
 
 export function fetchApi() {
   return async (dispatch) => {
