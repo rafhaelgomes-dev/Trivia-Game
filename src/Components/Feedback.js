@@ -11,6 +11,12 @@ class Feedback extends Component {
     return 'Well Done!';
   };
 
+  handleClick = (event) => {
+    event.preventDefault();
+    const { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     const { score, assertions } = this.props;
     return (
@@ -26,6 +32,13 @@ class Feedback extends Component {
         <h2 data-testid="feedback-total-question">
           { assertions }
         </h2>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          oncClick={ this.handleClick }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -39,6 +52,9 @@ const mapStateToProps = (state) => ({
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
