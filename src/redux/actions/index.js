@@ -14,7 +14,7 @@ export const getError = (payload) => ({ type: GET_ERROR, payload });
 export const getName = (name) => ({ type: GET_NAME, name });
 export const getEmail = (email) => ({ type: GET_EMAIL, email });
 export const changeScore = (score) => ({ type: CHANGE_SCORE, score });
-export const counter = (count) => ({ type: COUNTER, count });
+export const counter = (assertions) => ({ type: COUNTER, assertions });
 
 export function fetchApi() {
   return async (dispatch) => {
