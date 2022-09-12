@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { name, score } = this.props;
+    const { name, score, email } = this.props;
     // const hashEmail = md5(email).toString();
 
     return (
@@ -23,6 +23,9 @@ class Header extends Component {
           { score }
           {' '}
         </h2>
+        <h2 data-testid="input-gravatar-email">
+          { email }
+        </h2>
       </section>
     );
   }
@@ -31,12 +34,13 @@ class Header extends Component {
 const mapStateToProps = (state) => ({
   name: state.player.name,
   score: state.player.score,
+  email: state.player.email,
 });
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  // email: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);
