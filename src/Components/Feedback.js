@@ -15,7 +15,7 @@ class Feedback extends Component {
     const { score, assertions } = this.props;
     return (
       <div data-testid="feedback-text">
-        Feedback
+        Feedbacks
         <Header />
         <section data-testid="feedback-text">
           {this.checkCountOfCorretAnswer()}
