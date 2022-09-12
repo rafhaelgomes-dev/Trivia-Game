@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import Game from './Pages/Game';
 import Config from './Pages/Config';
 import Feedback from './Components/Feedback';
+import Ranking from './Components/Ranking';
 import './App.css';
 import store from './redux/store/index';
 
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/game" component={ Game } />
         <Route path="/config" component={ Config } />
         <Route path="/feedback" component={ Feedback } />
+        <Route path="/ranking" component={ Ranking } />
       </Switch>
     </Provider>
   );
