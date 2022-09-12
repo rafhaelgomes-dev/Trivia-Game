@@ -11,17 +11,23 @@ class Feedback extends Component {
     return 'Well Done!';
   };
 
-  handleClick = (event) => {
+  handleClickHome = (event) => {
     event.preventDefault();
     const { history } = this.props;
     history.push('/');
+  };
+
+  handleClickRanking = (event) => {
+    event.preventDefault();
+    const { history } = this.props;
+    history.push('/ranking');
   };
 
   render() {
     const { score, assertions } = this.props;
     return (
       <div data-testid="feedback-text">
-        Feedbacks
+        Feedback
         <Header />
         <section data-testid="feedback-text">
           {this.checkCountOfCorretAnswer()}
@@ -35,9 +41,16 @@ class Feedback extends Component {
         <button
           data-testid="btn-play-again"
           type="button"
-          oncClick={ this.handleClick }
+          onClick={ this.handleClickHome }
         >
           Play Again
+        </button>
+        <button
+          data-testid="btn-ranking"
+          type="submit"
+          onClick={ this.handleClickRanking }
+        >
+          Ranking
         </button>
       </div>
     );
