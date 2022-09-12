@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   email: '',
   token: '',
   score: 0,
-  count: 0,
+  assertions: 0,
   results: {},
 };
 
@@ -39,7 +39,7 @@ function player(state = INITIAL_STATE, action) {
   case COUNTER:
     return {
       ...state,
-      count: action.count,
+      assertions: action.assertions,
     };
   case RESULT_API:
     return {

@@ -9,7 +9,7 @@ const ZERO = 0;
 
 class AnswerButtons extends Component {
   state = {
-    count: 0,
+    assertions: 0,
   };
 
   handleClick = ({ target }) => {
@@ -22,9 +22,9 @@ class AnswerButtons extends Component {
 
       if (results[index].correct_answer === target.textContent) {
         dispatch(changeScore(easy));
-        this.setState((prevState) => ({ count: prevState.count + 1 }), () => {
-          const { count } = this.state;
-          dispatch(counter(count));
+        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+          const { assertions } = this.state;
+          dispatch(counter(assertions));
         });
       } else dispatch(changeScore(ZERO));
     }
@@ -33,9 +33,9 @@ class AnswerButtons extends Component {
 
       if (results[index].correct_answer === target.textContent) {
         dispatch(changeScore(medium));
-        this.setState((prevState) => ({ count: prevState.count + 1 }), () => {
-          const { count } = this.state;
-          dispatch(counter(count));
+        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+          const { assertions } = this.state;
+          dispatch(counter(assertions));
         });
       } else dispatch(changeScore(ZERO));
     }
@@ -44,9 +44,9 @@ class AnswerButtons extends Component {
 
       if (results[index].correct_answer === target.textContent) {
         dispatch(changeScore(hard));
-        this.setState((prevState) => ({ count: prevState.count + 1 }), () => {
-          const { count } = this.state;
-          dispatch(counter(count));
+        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+          const { assertions } = this.state;
+          dispatch(counter(assertions));
         });
       } else dispatch(changeScore(ZERO));
     }
