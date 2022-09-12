@@ -4,7 +4,10 @@ export const RESULT_API = 'RESULT_API';
 export const GET_ERROR = 'GET_ERROR';
 export const GET_NAME = 'GET_NAME';
 export const GET_EMAIL = 'GET_EMAIL';
+export const GET_RANKING = 'GET_RANKING';
+export const GET_IMG = 'GET_IMG';
 export const CHANGE_SCORE = 'CHANGE_SCORE';
+export const RESETTING_SCORE = 'RESETTING_SCORE';
 export const COUNTER = 'COUNTER';
 
 export const requestApi = () => ({ type: REQUEST_API });
@@ -12,8 +15,11 @@ export const responseApi = (payload) => ({ type: RESPONSE_API, payload });
 export const resultApi = (payload) => ({ type: RESULT_API, payload });
 export const getError = (payload) => ({ type: GET_ERROR, payload });
 export const getName = (name) => ({ type: GET_NAME, name });
+export const getImg = (img) => ({ type: GET_IMG, img });
+export const getRanking = (ranking) => ({ type: GET_RANKING, ranking });
 export const getEmail = (email) => ({ type: GET_EMAIL, email });
 export const changeScore = (score) => ({ type: CHANGE_SCORE, score });
+export const resettingScore = () => ({ type: RESETTING_SCORE });
 export const counter = (assertions) => ({ type: COUNTER, assertions });
 
 export function fetchApi() {

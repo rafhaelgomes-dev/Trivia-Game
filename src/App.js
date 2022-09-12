@@ -5,7 +5,7 @@ import Login from './Pages/Login';
 import Game from './Pages/Game';
 import Config from './Pages/Config';
 import Feedback from './Components/Feedback';
-import Ranking from './Components/Ranking';
+import Ranking from './Pages/Ranking';
 import './App.css';
 import store from './redux/store/index';
 

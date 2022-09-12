@@ -2,8 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from './Header';
+import { resettingScore } from '../redux/actions';
 
 class Feedback extends Component {
+  componentDidMount() {
+    const { score, imagem, name } = this.props;
+    let rankingDB = JSON.parse(localStorage.getItem('ranking'));
+    if (rankingDB === null) {
+      rankingDB = [];
+    }
+    const ranking = {
+      name,
+      score,
+      picture: imagem,
+    };
+    const sortedRanking = [...rankingDB, ranking];
+    sortedRanking.sort(this.sortRanking);
+    localStorage.setItem('ranking', JSON.stringify(sortedRanking));
+  }
+
+  sortRanking = (a, b) => {
+    const NUMBER_ONE = 1;
+    if (a.score > b.score) return -NUMBER_ONE;
+    if (a.score < b.score) return 1;
+    return 0;
+  };
+
   checkCountOfCorretAnswer = () => {
     const { assertions } = this.props;
     const minCount = 3;
@@ -13,7 +37,8 @@ class Feedback extends Component {
 
   handleClickHome = (event) => {
     event.preventDefault();
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(resettingScore());
     history.push('/');
   };
 
@@ -60,14 +85,19 @@ class Feedback extends Component {
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   score: state.player.score,
+  imagem: state.player.imagem,
+  name: state.player.name,
 });
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  imagem: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

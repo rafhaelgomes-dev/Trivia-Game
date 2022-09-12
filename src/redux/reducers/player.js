@@ -4,9 +4,12 @@ import { REQUEST_API,
   RESULT_API,
   CHANGE_SCORE,
   COUNTER,
+  GET_IMG,
+  RESETTING_SCORE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
+  imagem: '',
   name: '',
   email: '',
   token: '',
@@ -30,6 +33,16 @@ function player(state = INITIAL_STATE, action) {
     return {
       ...state,
       name: action.name,
+    };
+  case RESETTING_SCORE:
+    return {
+      ...state,
+      score: 0,
+    };
+  case GET_IMG:
+    return {
+      ...state,
+      imagem: action.img,
     };
   case GET_EMAIL:
     return {
