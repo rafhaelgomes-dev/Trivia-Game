@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resettingScore } from '../redux/actions';
+import styles from './Ranking.module.css';
+import logo from '../Assets/logotrivia.svg';
 
 class Ranking extends Component {
   handleClickHome = (event) => {
@@ -17,23 +19,29 @@ class Ranking extends Component {
       return <p>Ranking Vazio...</p>;
     }
     return (
-      <div data-testid="ranking-title">
-        <h1> Ranking </h1>
-        {rankingDB.map((e, i) => (
-          <div key={ i }>
-            <img src={ e.picture } alt="imagem User" />
-            <p data-testid={ `player-name-${i}` }>{e.name}</p>
-            <p data-testid={ `player-score-${i}` }>{e.score}</p>
-          </div>
-        ))}
-
-        <button
-          data-testid="btn-go-home"
-          type="submit"
-          onClick={ this.handleClickHome }
-        >
-          Home
-        </button>
+      <div className={ styles.main }>
+        <img className={ styles.logo } src={ logo } alt="logo trivia" />
+        <div className={ styles.section }>
+          <h1> Ranking </h1>
+          <section className={ styles.ranking }>
+            {rankingDB.map((e, i) => (
+              <div className={ styles.rankingUser } key={ i }>
+                <div className={ styles.divUser }>
+                  <img src={ e.picture } alt="imagem User" />
+                  <p data-testid={ `player-name-${i}` }>{e.name}</p>
+                </div>
+                <p data-testid={ `player-score-${i}` }>{`${e.score} Pontos`}</p>
+              </div>
+            ))}
+          </section>
+          <button
+            data-testid="btn-go-home"
+            type="submit"
+            onClick={ this.handleClickHome }
+          >
+            Home
+          </button>
+        </div>
       </div>
     );
   }

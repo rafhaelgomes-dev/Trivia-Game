@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 30px;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 10px;
+  flex-wrap: wrap;
+  background-color: white;
+}
+
+.imgUser {
+  width: 37px;
+  height: 37px;
+  margin-right: 5px;
+}
+
+.iconeStar {
+  margin-right: 5px;
+  margin-left: 100px;
+}
+
+.inputEmail {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.main {
+  background-image: url('../Assets/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: calc(100vh - 97px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.answerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Containerperguntas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  margin-right: 20px;
+  width: 439px;
+  height: 286px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 15px #2FC18C;
+}
+
+.buttonRespostas {
+  background-color: white;
+  border: none;
+  width: 400px;
+  border-radius: 8px;
+  margin: 5px;
+  height: 30px;
+}
+
+.containerButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonProximo {
+  background-color: #2FC18C;
+  width: 519px;
+  height: 45px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 20px;
+}
+
+.time {
+  margin-top: 20px;
+  color: red;
+}
+
+.category {
+  font-size: 25px;
+  margin-bottom: 20px;
+
+}

@@ -1,0 +1,42 @@
+.feedback {
+  background-image: url('../Assets/background.svg');
+  height: calc(100vh - 97px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainFeedback {
+  background-color: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+}
+.mainFeedback h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mainFeedback h3 {
+  margin-bottom: 20px;
+}
+
+.mainFeedback button {
+  margin-right: 10px;
+  width: 214px;
+  height: 45px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.buttonPlayAgain {
+  background-color: #00D5E2;
+}
+
+.buttonRanking {
+  background-color: #2FC18C;
+}

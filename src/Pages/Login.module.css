@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../Assets/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.form {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  margin-top: 15px;
+  margin-bottom: 40px;
+}
+
+.inputText {
+  background-color: white;
+  padding: 15px;
+  border: none;
+  border: 1px solid rgb(223, 223, 223);
+  width: 519px;
+  margin-bottom: 15px;
+}
+
+.button {
+  background-color: #2FC18C;
+  color: white;
+  width: 550px;
+  height: 45px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}

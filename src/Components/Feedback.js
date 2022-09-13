@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import { resettingScore } from '../redux/actions';
+import styles from './Feedback.module.css';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -31,8 +32,8 @@ class Feedback extends Component {
   checkCountOfCorretAnswer = () => {
     const { assertions } = this.props;
     const minCount = 3;
-    if (assertions < minCount) return 'Could be better...';
-    return 'Well Done!';
+    if (assertions < minCount) return 'Poderia ser melhor...';
+    return 'Mandou Bem!';
   };
 
   handleClickHome = (event) => {
@@ -51,32 +52,36 @@ class Feedback extends Component {
   render() {
     const { score, assertions } = this.props;
     return (
-      <div data-testid="feedback-text">
-        Feedback
+      <div>
         <Header />
-        <section data-testid="feedback-text">
-          {this.checkCountOfCorretAnswer()}
+        <section className={ styles.feedback }>
+          <div className={ styles.mainFeedback }>
+            {this.checkCountOfCorretAnswer()}
+
+            <h2 data-testid="feedback-total-score">
+              {`Um total de: ${score} pontos`}
+            </h2>
+            <h3 data-testid="feedback-total-question">
+              {`Você acertou ${assertions} questões`}
+            </h3>
+            <button
+              data-testid="btn-play-again"
+              type="button"
+              className={ styles.buttonPlayAgain }
+              onClick={ this.handleClickHome }
+            >
+              Jogar novamente
+            </button>
+            <button
+              data-testid="btn-ranking"
+              type="submit"
+              className={ styles.buttonRanking }
+              onClick={ this.handleClickRanking }
+            >
+              Ranking
+            </button>
+          </div>
         </section>
-        <h2 data-testid="feedback-total-score">
-          { score }
-        </h2>
-        <h2 data-testid="feedback-total-question">
-          { assertions }
-        </h2>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.handleClickHome }
-        >
-          Play Again
-        </button>
-        <button
-          data-testid="btn-ranking"
-          type="submit"
-          onClick={ this.handleClickRanking }
-        >
-          Ranking
-        </button>
       </div>
     );
   }

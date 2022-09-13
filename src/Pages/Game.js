@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import AnswerButtons from '../Components/AnswerButtons';
+import styles from './Game.module.css';
 
 const NUMBER_THREE = 3;
 class Game extends Component {
@@ -28,7 +29,7 @@ class Game extends Component {
       const { seconds } = this.state;
       const timeLimit = 0;
       if (seconds === timeLimit) {
-        this.setState({ disabledButtonAnswers: true });
+        this.setState({ disabledButtonAnswers: true, clickAnswer: true });
       } else {
         this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
       }
@@ -142,7 +143,7 @@ class Game extends Component {
     return (
       <section>
         <Header />
-        <div>
+        <div className={ styles.main }>
           <AnswerButtons
             Results={ Results }
             index={ index }
@@ -160,12 +161,13 @@ class Game extends Component {
             <button
               type="button"
               data-testid="btn-next"
+              className={ styles.buttonProximo }
               onClick={ this.handleIncrementIndex }
             >
               Next
             </button>
           )}
-          <h2>{ seconds }</h2>
+          <h2 className={ styles.time }>{`Tempo: ${seconds}` }</h2>
         </div>
       </section>
     );

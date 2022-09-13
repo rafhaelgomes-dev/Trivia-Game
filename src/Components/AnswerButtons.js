@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeScore, counter } from '../redux/actions';
+import styles from '../Pages/Game.module.css';
 
 const NUMBER_THREE = 3;
 const NUMBER_TEN = 10;
@@ -10,6 +11,12 @@ const ZERO = 0;
 class AnswerButtons extends Component {
   state = {
     assertions: 0,
+  };
+
+  decodeEntity = (inputStr) => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = inputStr;
+    return textarea.value;
   };
 
   handleClick = ({ target }) => {
@@ -68,50 +75,66 @@ class AnswerButtons extends Component {
     const indexArrDuo = [0, 1];
 
     return (
-      <section>
+      <section className={ styles.componentAnswer }>
         {results[index].type === 'multiple' ? (
-          <div data-testid="answer-options">
-            <p data-testid="question-category">{results[index].category}</p>
-            <p data-testid="question-text">{results[index].question}</p>
-            {indexArrMulti.map((item) => (
-              <button
-                key={ item }
-                type="button"
-                name={ results[item].difficulty }
-                data-testid={ respostasMulti[multipleRandomArray[item]].dataTesting }
-                style={ clickAnswer
-                  ? { border: respostasMulti[multipleRandomArray[item]].color } : null }
-                disabled={ disabledButtonAnswers }
-                onClick={ this.handleClick }
+          <div className={ styles.answerDiv }>
+            <div className={ styles.Containerperguntas }>
+              <p
+                className={ styles.category }
               >
-                {respostasMulti[multipleRandomArray[item]].resposta}
-              </button>
-            ))}
+                { this.decodeEntity(results[index].category) }
 
+              </p>
+              <p>{ this.decodeEntity(results[index].question) }</p>
+            </div>
+            <div className={ styles.containerButton }>
+              {indexArrMulti.map((item) => (
+                <button
+                  className={ styles.buttonRespostas }
+                  key={ item }
+                  type="button"
+                  name={ results[item].difficulty }
+                  data-testid={ respostasMulti[multipleRandomArray[item]].dataTesting }
+                  style={ clickAnswer
+                    ? { border: respostasMulti[multipleRandomArray[item]].color } : null }
+                  disabled={ disabledButtonAnswers }
+                  onClick={ this.handleClick }
+                >
+                  { this.decodeEntity(
+                    respostasMulti[multipleRandomArray[item]].resposta,
+                  ) }
+                </button>
+              ))}
+            </div>
           </div>
         ) : (
-          <div data-testid="answer-options">
-            <p
-              data-testid="question-category"
-            >
-              {results[index].category}
-            </p>
-
-            <p data-testid="question-text">{results[index].question}</p>
-            {indexArrDuo.map((item) => (
-              <button
-                key={ item }
-                type="button"
-                name={ results[item].difficulty }
-                data-testid={ respostasMulti[booleanRandomArray[item]].dataTesting }
-                style={ clickAnswer
-                  ? { border: respostasMulti[booleanRandomArray[item]].color } : null }
-                disabled={ disabledButtonAnswers }
-                onClick={ this.handleClick }
+          <div className={ styles.answerDiv }>
+            <div className={ styles.Containerperguntas }>
+              <p
+                className={ styles.category }
               >
-                {respostasBollen[booleanRandomArray[item]].resposta}
-              </button>
-            ))}
+                { this.decodeEntity(results[index].category) }
+              </p>
+
+              <p>{ this.decodeEntity(results[index].question) }</p>
+            </div>
+            <div className={ styles.containerButton }>
+              {indexArrDuo.map((item) => (
+                <button
+                  className={ styles.buttonRespostas }
+                  key={ item }
+                  type="button"
+                  name={ results[item].difficulty }
+                  data-testid={ respostasMulti[booleanRandomArray[item]].dataTesting }
+                  style={ clickAnswer
+                    ? { border: respostasMulti[booleanRandomArray[item]].color } : null }
+                  disabled={ disabledButtonAnswers }
+                  onClick={ this.handleClick }
+                >
+                  {respostasBollen[booleanRandomArray[item]].resposta}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </section>

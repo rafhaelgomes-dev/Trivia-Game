@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi, getEmail, getName, fetchApiResult } from '../redux/actions';
+import styles from './Login.module.css';
+import LogoTrivi from '../Assets/logotrivia.svg';
+import IconeTrybe from '../Assets/iconetrybe.svg';
 
 class Login extends Component {
   state = {
     name: '',
     email: '',
     isBtnDisabled: true,
+    Carregando: false,
   };
 
   validateEmail = () => {
@@ -41,66 +45,64 @@ class Login extends Component {
     event.preventDefault();
     const { history, dispatch } = this.props;
     const { name, email } = this.state;
+    this.setState({
+      Carregando: true,
+    });
     dispatch(getName(name));
     dispatch(getEmail(email));
     await dispatch(fetchApi());
     const token = localStorage.getItem('token');
     await dispatch(fetchApiResult(token));
+    this.setState({
+      Carregando: false,
+    });
     history.push('/game');
   };
 
-  handleClickConfig = (event) => {
-    event.preventDefault();
-    const { history } = this.props;
-    history.push('/config');
-  };
-
   render() {
-    const { isBtnDisabled } = this.state;
+    const { isBtnDisabled, Carregando } = this.state;
     return (
-      <form>
-        <div>Login</div>
-        <label htmlFor="name">
-          Name
-          <input
-            type="text"
-            data-testid="input-player-name"
-            name="name"
-            id="name"
-            onChange={ this.handleInput }
-            required
-          />
-        </label>
+      <main className={ styles.main }>
+        <img src={ LogoTrivi } alt="Logo Trivia" />
+        <form className={ styles.form }>
+          <label htmlFor="name">
+            <input
+              className={ styles.inputText }
+              type="text"
+              data-testid="input-player-name"
+              name="name"
+              id="name"
+              placeholder="Qual é o seu nome?"
+              onChange={ this.handleInput }
+              required
+            />
+          </label>
 
-        <label htmlFor="email">
-          Email
-          <input
-            type="text"
-            data-testid="input-gravatar-email"
-            name="email"
-            id="email"
-            onChange={ this.handleInput }
-            required
-          />
-        </label>
+          <label htmlFor="email">
+            <input
+              className={ styles.inputText }
+              type="text"
+              data-testid="input-gravatar-email"
+              name="email"
+              id="email"
+              placeholder="Qual é o seu e-mail?"
+              onChange={ this.handleInput }
+              required
+            />
+          </label>
 
-        <button
-          type="submit"
-          data-testid="btn-play"
-          onClick={ this.handleClickSubmit }
-          disabled={ isBtnDisabled }
-        >
-          Play
-        </button>
-
-        <button
-          type="submit"
-          data-testid="btn-settings"
-          onClick={ this.handleClickConfig }
-        >
-          Configurações
-        </button>
-      </form>
+          <button
+            className={ styles.button }
+            type="submit"
+            data-testid="btn-play"
+            onClick={ this.handleClickSubmit }
+            disabled={ isBtnDisabled }
+          >
+            {Carregando ? 'Carregando...' : 'Jogar'}
+          </button>
+        </form>
+        <img src={ IconeTrybe } alt="Icone Trybe" />
+      </main>
     );
   }
 }
