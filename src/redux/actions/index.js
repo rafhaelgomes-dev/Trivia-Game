@@ -9,6 +9,7 @@ export const GET_IMG = 'GET_IMG';
 export const CHANGE_SCORE = 'CHANGE_SCORE';
 export const RESETTING_SCORE = 'RESETTING_SCORE';
 export const COUNTER = 'COUNTER';
+export const RESETTING_COUNTER = 'RESETTING_COUNTER';
 
 export const requestApi = () => ({ type: REQUEST_API });
 export const responseApi = (payload) => ({ type: RESPONSE_API, payload });
@@ -21,6 +22,7 @@ export const getEmail = (email) => ({ type: GET_EMAIL, email });
 export const changeScore = (score) => ({ type: CHANGE_SCORE, score });
 export const resettingScore = () => ({ type: RESETTING_SCORE });
 export const counter = (assertions) => ({ type: COUNTER, assertions });
+export const resettingCounter = () => ({ type: RESETTING_COUNTER });
 
 export function fetchApi() {
   return async (dispatch) => {

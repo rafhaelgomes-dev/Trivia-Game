@@ -19,17 +19,16 @@ class AnswerButtons extends Component {
     return textarea.value;
   };
 
-  handleClick = ({ target }) => {
+  handleClick = async ({ target }) => {
     const { handleColor, dispatch, Results, index, seconds } = this.props;
     const { results } = Results;
     handleColor();
-
     if (target.name === 'easy') {
       const easy = NUMBER_TEN + (seconds * 1);
-
       if (results[index].correct_answer === target.textContent) {
         dispatch(changeScore(easy));
-        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+        await this.setState((prevState) => (
+          { assertions: prevState.assertions + 1 }), () => {
           const { assertions } = this.state;
           dispatch(counter(assertions));
         });
@@ -40,7 +39,8 @@ class AnswerButtons extends Component {
 
       if (results[index].correct_answer === target.textContent) {
         dispatch(changeScore(medium));
-        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+        await this.setState((prevState) => (
+          { assertions: prevState.assertions + 1 }), () => {
           const { assertions } = this.state;
           dispatch(counter(assertions));
         });
