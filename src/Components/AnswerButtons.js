@@ -26,36 +26,37 @@ class AnswerButtons extends Component {
     if (target.name === 'easy') {
       const easy = NUMBER_TEN + (seconds * 1);
       if (results[index].correct_answer === target.textContent) {
-        dispatch(changeScore(easy));
+        await dispatch(changeScore(easy));
         await this.setState((prevState) => (
           { assertions: prevState.assertions + 1 }), () => {
           const { assertions } = this.state;
           dispatch(counter(assertions));
         });
-      } else dispatch(changeScore(ZERO));
+      } else await dispatch(changeScore(ZERO));
     }
     if (target.name === 'medium') {
       const medium = NUMBER_TEN + (seconds * 2);
 
       if (results[index].correct_answer === target.textContent) {
-        dispatch(changeScore(medium));
+        await dispatch(changeScore(medium));
         await this.setState((prevState) => (
           { assertions: prevState.assertions + 1 }), () => {
           const { assertions } = this.state;
           dispatch(counter(assertions));
         });
-      } else dispatch(changeScore(ZERO));
+      } else await dispatch(changeScore(ZERO));
     }
     if (target.name === 'hard') {
       const hard = NUMBER_TEN + (seconds * NUMBER_THREE);
 
       if (results[index].correct_answer === target.textContent) {
-        dispatch(changeScore(hard));
-        this.setState((prevState) => ({ assertions: prevState.assertions + 1 }), () => {
+        await dispatch(changeScore(hard));
+        await this.setState((prevState) => (
+          { assertions: prevState.assertions + 1 }), () => {
           const { assertions } = this.state;
           dispatch(counter(assertions));
         });
-      } else dispatch(changeScore(ZERO));
+      } else await ispatch(changeScore(ZERO));
     }
   };
 
